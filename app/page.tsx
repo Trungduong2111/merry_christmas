@@ -12,15 +12,18 @@ export default function Christmas() {
 
       const c = document.querySelector("#c") as HTMLCanvasElement;
       const c2 = document.querySelector("#c2") as HTMLCanvasElement;
+      const c3 = document.querySelector("#c3") as HTMLCanvasElement;
 
-      if (!c || !c2) return;
+      if (!c || !c2 || !c3) return;
 
       const ctx = c.getContext("2d")!;
       const ctx2 = c2.getContext("2d")!;
+      const ctx3 = c3.getContext("2d")!;
 
       const cw = (c.width = 4000);
       const ch = (c.height = 4000);
       c2.width = c2.height = 4000;
+      c3.width = c3.height = 4000;
 
       const T = Math.PI * 2;
 
@@ -38,6 +41,36 @@ export default function Christmas() {
         spikes: 5,
         outerRadius: 100,
         innerRadius: 40
+      };
+
+      // Gift boxes around the tree
+      const gifts = [
+        { x: 800, y: 3200, width: 180, height: 180, color: "#FF6B6B", ribbon: "#FFD700", label: "MERRY", rotation: 0.1 },
+        { x: 3200, y: 3200, width: 180, height: 180, color: "#4ECDC4", ribbon: "#FF6B6B", label: "XMAS", rotation: -0.1 },
+        { x: 600, y: 3400, width: 220, height: 150, color: "#FFD166", ribbon: "#06D6A0", label: "JOY", rotation: 0.05 },
+        { x: 3400, y: 3400, width: 220, height: 150, color: "#118AB2", ribbon: "#EF476F", label: "2024", rotation: -0.05 },
+        { x: 1000, y: 3600, width: 150, height: 200, color: "#EF476F", ribbon: "#118AB2", label: "🎁", rotation: 0.08 },
+        { x: 3000, y: 3600, width: 150, height: 200, color: "#06D6A0", ribbon: "#FFD166", label: "🎄", rotation: -0.08 },
+      ];
+
+      // Christmas balls decorations
+      const balls = [
+        { x: 1200, y: 2800, radius: 60, color: "#FF6B6B", glow: 0, rotation: 0 },
+        { x: 2800, y: 2800, radius: 60, color: "#4ECDC4", glow: 0, rotation: 0 },
+        { x: 900, y: 3000, radius: 50, color: "#FFD166", glow: 0, rotation: 0 },
+        { x: 3100, y: 3000, radius: 50, color: "#118AB2", glow: 0, rotation: 0 },
+        { x: 1400, y: 3200, radius: 70, color: "#EF476F", glow: 0, rotation: 0 },
+        { x: 2600, y: 3200, radius: 70, color: "#06D6A0", glow: 0, rotation: 0 },
+      ];
+
+      // Merry Christmas text
+      const merryText = {
+        x: cw / 2,
+        y: 400,
+        text: "MERRY CHRISTMAS",
+        fontSize: 120,
+        color: "#FFD700",
+        glow: 0
       };
 
       const xTo = gsap.quickTo(m, "x", { duration: 1.5, ease: "expo" });
@@ -89,9 +122,125 @@ export default function Christmas() {
           .timeScale(arr2[i].s / 700);
       }
 
-      ctx.fillStyle = ctx2.fillStyle = "#fff";
+      ctx.fillStyle = ctx2.fillStyle = ctx3.fillStyle = "#fff";
       ctx.strokeStyle = "rgba(255,255,255,0.05)";
       ctx.globalCompositeOperation = "lighter";
+      ctx3.globalCompositeOperation = "lighter";
+
+      // Draw gift box
+      function drawGift(gift: any) {
+        ctx3.save();
+        ctx3.translate(gift.x, gift.y);
+        ctx3.rotate(gift.rotation);
+        
+        // Gift box shadow
+        ctx3.shadowColor = gift.color;
+        ctx3.shadowBlur = 20;
+        
+        // Gift box
+        ctx3.fillStyle = gift.color;
+        ctx3.fillRect(-gift.width/2, -gift.height/2, gift.width, gift.height);
+        
+        // Ribbon vertical
+        ctx3.fillStyle = gift.ribbon;
+        ctx3.fillRect(-15, -gift.height/2, 30, gift.height);
+        
+        // Ribbon horizontal
+        ctx3.fillRect(-gift.width/2, -15, gift.width, 30);
+        
+        // Ribbon bow
+        ctx3.beginPath();
+        ctx3.arc(0, 0, 20, 0, T);
+        ctx3.fill();
+        
+        // Bow loops
+        ctx3.beginPath();
+        ctx3.arc(-25, 0, 15, 0, T);
+        ctx3.arc(25, 0, 15, 0, T);
+        ctx3.arc(0, -25, 15, 0, T);
+        ctx3.arc(0, 25, 15, 0, T);
+        ctx3.fill();
+        
+        // Gift label
+        ctx3.save();
+        ctx3.shadowColor = "#000";
+        ctx3.shadowBlur = 10;
+        ctx3.fillStyle = "#fff";
+        ctx3.font = `bold ${gift.width/5}px Arial`;
+        ctx3.textAlign = "center";
+        ctx3.textBaseline = "middle";
+        ctx3.fillText(gift.label, 0, 0);
+        ctx3.restore();
+        
+        ctx3.restore();
+      }
+
+      // Draw Christmas ball
+      function drawBall(ball: any) {
+        ctx3.save();
+        ctx3.translate(ball.x, ball.y);
+        
+        // Ball glow
+        ctx3.shadowColor = ball.color;
+        ctx3.shadowBlur = 20 + ball.glow * 10;
+        
+        // Ball body
+        ctx3.fillStyle = ball.color;
+        ctx3.beginPath();
+        ctx3.arc(0, 0, ball.radius, 0, T);
+        ctx3.fill();
+        
+        // Ball highlight
+        ctx3.fillStyle = "rgba(255, 255, 255, 0.3)";
+        ctx3.beginPath();
+        ctx3.arc(-ball.radius/3, -ball.radius/3, ball.radius/3, 0, T);
+        ctx3.fill();
+        
+        // Ball cap
+        ctx3.fillStyle = "#FFD700";
+        ctx3.beginPath();
+        ctx3.arc(0, -ball.radius - 5, 8, 0, T);
+        ctx3.fill();
+        
+        // Cap ring
+        ctx3.beginPath();
+        ctx3.rect(-10, -ball.radius - 10, 20, 5);
+        ctx3.fill();
+        
+        ctx3.restore();
+      }
+
+      // Draw text with glow
+      function drawText() {
+        ctx3.save();
+        ctx3.translate(merryText.x, merryText.y);
+        
+        // Text shadow/glow
+        ctx3.shadowColor = merryText.color;
+        ctx3.shadowBlur = 30 + merryText.glow * 20;
+        
+        // Text
+        ctx3.fillStyle = merryText.color;
+        ctx3.font = `bold ${merryText.fontSize}px 'Arial Black', sans-serif`;
+        ctx3.textAlign = "center";
+        ctx3.textBaseline = "middle";
+        ctx3.fillText(merryText.text, 0, 0);
+        
+        // Additional sparkles
+        for (let i = 0; i < 12; i++) {
+          const angle = (Date.now() * 0.001 + i * 0.5) % (Math.PI * 2);
+          const dist = 150 + Math.sin(Date.now() * 0.002 + i) * 50;
+          const x = Math.cos(angle) * dist;
+          const y = Math.sin(angle) * dist * 0.3;
+          
+          ctx3.beginPath();
+          ctx3.arc(x, y, 5 + Math.sin(Date.now() * 0.005 + i) * 3, 0, T);
+          ctx3.fillStyle = i % 3 === 0 ? "#FF6B6B" : i % 3 === 1 ? "#4ECDC4" : "#FFD700";
+          ctx3.fill();
+        }
+        
+        ctx3.restore();
+      }
 
       // Draw star function
       function drawStar() {
@@ -182,12 +331,28 @@ export default function Christmas() {
       function render() {
         ctx.clearRect(0, 0, cw, ch);
         ctx2.clearRect(0, 0, cw, ch);
+        ctx3.clearRect(0, 0, cw, ch);
         
-        // Update star animation
+        // Update animations
         star.rotation += 0.002;
         star.glow = 0.8 + Math.sin(Date.now() * 0.003) * 0.2;
+        merryText.glow = Math.sin(Date.now() * 0.002) * 0.5 + 0.5;
         
-        // Draw star first (so it's behind tree dots)
+        // Update gift rotations
+        gifts.forEach((gift, i) => {
+          gift.rotation = 0.1 * Math.sin(Date.now() * 0.001 + i);
+        });
+        
+        // Update ball glows
+        balls.forEach((ball, i) => {
+          ball.glow = Math.sin(Date.now() * 0.003 + i) * 0.5 + 0.5;
+          ball.rotation += 0.01;
+        });
+        
+        // Draw decorations
+        gifts.forEach(drawGift);
+        balls.forEach(drawBall);
+        drawText();
         drawStar();
         
         // Draw tree and snow
@@ -198,7 +363,7 @@ export default function Christmas() {
       // GSAP ticker
       renderTicker = gsap.ticker.add(render);
 
-      // Intro animation for star
+      // Intro animations
       gsap.from(star, {
         duration: 1.5,
         scale: 0,
@@ -207,10 +372,50 @@ export default function Christmas() {
         delay: 0.5
       });
 
+      // Animate gifts
+      gifts.forEach((gift, i) => {
+        gsap.from(gift, {
+          duration: 1,
+          scale: 0,
+          rotation: Math.PI * 2,
+          ease: "back.out(1.7)",
+          delay: 0.7 + i * 0.1
+        });
+      });
+
+      // Animate balls
+      balls.forEach((ball, i) => {
+        gsap.from(ball, {
+          duration: 1,
+          scale: 0,
+          y: "+=200",
+          ease: "bounce.out",
+          delay: 0.8 + i * 0.1
+        });
+      });
+
+      // Animate text
+      gsap.from(merryText, {
+        duration: 1.2,
+        y: "-=100",
+        opacity: 0,
+        ease: "power3.out",
+        delay: 0.3
+      });
+
       // Star pulsing animation
       gsap.to(star, {
         duration: 1.5,
         scale: 1.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Text glowing animation
+      gsap.to(merryText, {
+        duration: 2,
+        fontSize: 130,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
@@ -232,6 +437,7 @@ export default function Christmas() {
     <div>
       <div id="fixed-bg">
         <canvas id="c2"></canvas>
+        <canvas id="c3"></canvas>
         <canvas id="c"></canvas>
       </div>
 
@@ -261,6 +467,13 @@ export default function Christmas() {
         #c2 {
           width: 100%;
           height: auto;
+          opacity: 0.6;
+        }
+
+        #c3 {
+          width: auto;
+          height: 100%;
+          opacity: 0.9;
         }
 
         @media (max-aspect-ratio: 1) {
@@ -271,6 +484,10 @@ export default function Christmas() {
           #c2 {
             width: auto;
             height: 100%;
+          }
+          #c3 {
+            width: 100%;
+            height: auto;
           }
         }
       `}</style>
@@ -283,7 +500,8 @@ export default function Christmas() {
           padding: 0;
           width: 100%;
           height: 100%;
-          background: #000;
+          background: linear-gradient(180deg, #0a0a2a 0%, #1a1a3a 100%);
+          overflow: hidden;
         }
       `}</style>
     </div>
