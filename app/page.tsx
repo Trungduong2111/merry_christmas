@@ -46,14 +46,35 @@ export default function Christmas() {
         innerRadius: 40
       };
 
+      // Define particle type
+      type FireworkParticle = {
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        life: number;
+        decay: number;
+        size: number;
+        color: string;
+        gravity: number;
+      };
+
+      // Define firework type
+      type Firework = {
+        x: number;
+        y: number;
+        particles: FireworkParticle[];
+        created: number;
+      };
+
       // Fireworks
-      const fireworks: any[] = [];
+      const fireworks: Firework[] = [];
       
       const createFirework = (x: number, y: number) => {
         const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#EF476F', '#118AB2', '#06D6A0', '#FFD700'];
         const color = colors[Math.floor(Math.random() * colors.length)];
         
-        const particles = [];
+        const particles: FireworkParticle[] = [];
         const particleCount = 50 + Math.floor(Math.random() * 50);
         
         for (let i = 0; i < particleCount; i++) {
@@ -200,7 +221,7 @@ export default function Christmas() {
         const now = Date.now();
         
         fireworks.forEach((firework, idx) => {
-          firework.particles = firework.particles.filter(particle => {
+          firework.particles = firework.particles.filter((particle: FireworkParticle) => {
             // Update particle
             particle.x += particle.vx;
             particle.y += particle.vy;
