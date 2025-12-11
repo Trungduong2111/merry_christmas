@@ -28,6 +28,18 @@ export default function Christmas() {
       const arr2: any[] = [];
       const m = { x: cw / 2, y: 0 };
 
+      // Star properties
+      const star = {
+        x: cw / 2,
+        y: 600,
+        size: 100,
+        rotation: 0,
+        glow: 1,
+        spikes: 5,
+        outerRadius: 100,
+        innerRadius: 40
+      };
+
       const xTo = gsap.quickTo(m, "x", { duration: 1.5, ease: "expo" });
       const yTo = gsap.quickTo(m, "y", { duration: 1.5, ease: "expo" });
 
@@ -81,6 +93,56 @@ export default function Christmas() {
       ctx.strokeStyle = "rgba(255,255,255,0.05)";
       ctx.globalCompositeOperation = "lighter";
 
+      // Draw star function
+      function drawStar() {
+        const rotation = (Math.PI / 2) * 3;
+        const step = Math.PI / star.spikes;
+        
+        ctx.save();
+        ctx.translate(star.x, star.y);
+        ctx.rotate(star.rotation);
+        
+        // Star glow effect
+        ctx.shadowColor = "#FFD700";
+        ctx.shadowBlur = 20 * star.glow;
+        
+        ctx.beginPath();
+        ctx.moveTo(0, 0 - star.outerRadius);
+        
+        for (let i = 0; i < star.spikes; i++) {
+          // Outer point
+          const x = Math.cos(rotation + (i * 2 * step)) * star.outerRadius;
+          const y = Math.sin(rotation + (i * 2 * step)) * star.outerRadius;
+          ctx.lineTo(x, y);
+          
+          // Inner point
+          const ix = Math.cos(rotation + (i * 2 * step) + step) * star.innerRadius;
+          const iy = Math.sin(rotation + (i * 2 * step) + step) * star.innerRadius;
+          ctx.lineTo(ix, iy);
+        }
+        
+        ctx.lineTo(0, 0 - star.outerRadius);
+        ctx.closePath();
+        
+        // Fill star
+        ctx.fillStyle = "#FFD700";
+        ctx.fill();
+        
+        // Add sparkle effect
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+          const angle = (i * Math.PI) / 4;
+          const length = 20 + Math.sin(Date.now() * 0.002 + i) * 10;
+          ctx.moveTo(0, 0);
+          ctx.lineTo(Math.cos(angle) * length, Math.sin(angle) * length);
+        }
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        ctx.restore();
+      }
+
       // Draw tree dots
       function drawDot(c: any) {
         const angle = c.prog * T;
@@ -120,12 +182,39 @@ export default function Christmas() {
       function render() {
         ctx.clearRect(0, 0, cw, ch);
         ctx2.clearRect(0, 0, cw, ch);
+        
+        // Update star animation
+        star.rotation += 0.002;
+        star.glow = 0.8 + Math.sin(Date.now() * 0.003) * 0.2;
+        
+        // Draw star first (so it's behind tree dots)
+        drawStar();
+        
+        // Draw tree and snow
         arr.forEach(drawDot);
         arr2.forEach(drawSnow);
       }
 
       // GSAP ticker
       renderTicker = gsap.ticker.add(render);
+
+      // Intro animation for star
+      gsap.from(star, {
+        duration: 1.5,
+        scale: 0,
+        rotation: Math.PI * 2,
+        ease: "back.out(1.7)",
+        delay: 0.5
+      });
+
+      // Star pulsing animation
+      gsap.to(star, {
+        duration: 1.5,
+        scale: 1.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
 
       // Intro
       gsap.from(arr, { duration: 1, dot: 0, ease: "back.out(9)", stagger: -0.0009 });
