@@ -41,8 +41,8 @@ export default function AuroraAudio() {
   ];
 
   const products: Product[] = [
-  { id: 'p1', title: 'Nova Pro Wireless', meta: 'Over-ear • ANC', price: 199, category: 'Headphones', badge: 'Best Seller', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b?auto=format' },
-  { id: 'p2', title: 'EchoMax Portable', meta: 'Bluetooth • 20h battery', price: 129, category: 'Speakers', badge: 'New', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format' },
+  { id: 'p1', title: 'Nova Pro Wireless', meta: 'Over-ear • ANC', price: 199, category: 'Headphones', badge: 'Best Seller', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b' },
+  { id: 'p2', title: 'EchoMax Portable', meta: 'Bluetooth • 20h battery', price: 129, category: 'Speakers', badge: 'New', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1' },
   { id: 'p3', title: 'AirLite TWS', meta: 'IPX5 • Fast charge', price: 89, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df' },
   { id: 'p4', title: 'StudioX Monitor', meta: 'Wired • Neutral', price: 159, category: 'Headphones', badge: "Editor's pick", image: 'https://images.unsplash.com/photo-1599669454699-248893623440' },
   { id: 'p5', title: 'QuietWave ANC', meta: 'ANC • 30h battery', price: 219, category: 'Headphones', image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944' },
