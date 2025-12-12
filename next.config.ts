@@ -6,6 +6,7 @@ images: {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+        pathname: '/**',
       },
     ],
   },
