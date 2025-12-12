@@ -41,28 +41,30 @@ export default function AuroraAudio() {
   ];
 
   const products: Product[] = [
-    { id: 'p1', title: 'Nova Pro Wireless', meta: 'Over-ear • ANC', price: 199, category: 'Headphones', badge: 'Best Seller', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b?w=600&q=80' },
-    { id: 'p2', title: 'EchoMax Portable', meta: 'Bluetooth • 20h battery', price: 129, category: 'Speakers', badge: 'New', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80' },
-    { id: 'p3', title: 'AirLite TWS', meta: 'IPX5 • Fast charge', price: 89, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80' },
-    { id: 'p4', title: 'StudioX Monitor', meta: 'Wired • Neutral', price: 159, category: 'Headphones', badge: "Editor's pick", image: 'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80' },
-    { id: 'p5', title: 'QuietWave ANC', meta: 'ANC • 30h battery', price: 219, category: 'Headphones', image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80' },
-    { id: 'p6', title: 'SoundBar X Pro', meta: 'Dolby • Wi‑Fi', price: 349, category: 'Speakers', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b?w=600&q=80' },
-    { id: 'p7', title: 'GoldLink Cable', meta: 'OFC • 1.5m', price: 29, category: 'Accessories', image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775?w=600&q=80' },
-    { id: 'p8', title: 'ArcLite Gaming', meta: 'Surround • Mic', price: 109, category: 'Headphones', image: 'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80' }
-  ];
+  { id: 'p1', title: 'Nova Pro Wireless', meta: 'Over-ear • ANC', price: 199, category: 'Headphones', badge: 'Best Seller', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b' },
+  { id: 'p2', title: 'EchoMax Portable', meta: 'Bluetooth • 20h battery', price: 129, category: 'Speakers', badge: 'New', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1' },
+  { id: 'p3', title: 'AirLite TWS', meta: 'IPX5 • Fast charge', price: 89, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df' },
+  { id: 'p4', title: 'StudioX Monitor', meta: 'Wired • Neutral', price: 159, category: 'Headphones', badge: "Editor's pick", image: 'https://images.unsplash.com/photo-1599669454699-248893623440' },
+  { id: 'p5', title: 'QuietWave ANC', meta: 'ANC • 30h battery', price: 219, category: 'Headphones', image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944' },
+  { id: 'p6', title: 'SoundBar X Pro', meta: 'Dolby • Wi-Fi', price: 349, category: 'Speakers', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b' },
+  { id: 'p7', title: 'GoldLink Cable', meta: 'OFC • 1.5m', price: 29, category: 'Accessories', image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775' },
+  { id: 'p8', title: 'ArcLite Gaming', meta: 'Surround • Mic', price: 109, category: 'Headphones', image: 'https://images.unsplash.com/photo-1599669454699-248893623440' }
+];
 
-  const flashSaleItems: FlashSaleItem[] = [
-    { title: 'MiniGo Speaker', meta: 'Compact • Waterproof', price: 49, oldPrice: 79, discount: 38, image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=480&q=80' },
-    { title: 'SilenceBuds', meta: 'ANC • Wireless', price: 59, oldPrice: 99, discount: 40, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=480&q=80' },
-    { title: 'Walnut Stand', meta: 'Solid wood • Minimal', price: 25, oldPrice: 39, discount: 36, image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775?w=480&q=80' }
-  ];
 
-  const recommendedProducts: Product[] = [
-    { id: 'r1', title: 'PocketBeat Mini', meta: 'Ultra compact', price: 39, category: 'Speakers', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80' },
-    { id: 'r2', title: 'CloudEars Soft', meta: 'Memory foam tips', price: 19, category: 'Accessories', image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775?w=600&q=80' },
-    { id: 'r3', title: 'BassBoost Pro', meta: 'Earbuds • Deep bass', price: 69, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80' },
-    { id: 'r4', title: 'Clarity Mic', meta: 'USB‑C • Noise filter', price: 59, category: 'Accessories', image: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?w=600&q=80' }
-  ];
+ const flashSaleItems: FlashSaleItem[] = [
+  { title: 'MiniGo Speaker', meta: 'Compact • Waterproof', price: 49, oldPrice: 79, discount: 38, image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1' },
+  { title: 'SilenceBuds', meta: 'ANC • Wireless', price: 59, oldPrice: 99, discount: 40, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df' },
+  { title: 'Walnut Stand', meta: 'Solid wood • Minimal', price: 25, oldPrice: 39, discount: 36, image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775' }
+];
+
+
+ const recommendedProducts: Product[] = [
+  { id: 'r1', title: 'PocketBeat Mini', meta: 'Ultra compact', price: 39, category: 'Speakers', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1' },
+  { id: 'r2', title: 'CloudEars Soft', meta: 'Memory foam tips', price: 19, category: 'Accessories', image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775' },
+  { id: 'r3', title: 'BassBoost Pro', meta: 'Earbuds • Deep bass', price: 69, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df' },
+  { id: 'r4', title: 'Clarity Mic', meta: 'USB-C • Noise filter', price: 59, category: 'Accessories', image: 'https://images.unsplash.com/photo-1589003077984-894e133dabab' }
+];
 
   // Timer countdown
   useEffect(() => {
