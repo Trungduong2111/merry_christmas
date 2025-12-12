@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Search, User, Menu, X, List, Timer, Heart, Mail, Instagram, Twitter, Youtube, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export default function AuroraAudio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,7 +107,7 @@ export default function AuroraAudio() {
                   onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                   className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-purple-900 transition-colors"
                 >
-                  <List size={18} className="text-purple-900" />
+                  <div className="w-4 h-4 bg-purple-900"></div>
                   <span>Categories</span>
                 </button>
                 {isCategoriesOpen && (
@@ -135,16 +134,16 @@ export default function AuroraAudio() {
             {/* Actions */}
             <div className="flex items-center space-x-4">
               <a href="#" className="hidden md:flex items-center space-x-2 text-gray-700 hover:text-purple-900 transition-colors">
-                <User size={18} className="text-purple-900" />
+                <div className="w-4 h-4 bg-purple-900 rounded-full"></div>
                 <span>Sign In</span>
               </a>
               <button className="relative flex items-center space-x-2 px-3 py-2 text-gray-700 hover:text-purple-900 transition-colors">
-                <ShoppingCart size={18} className="text-purple-900" />
+                <div className="w-4 h-4 bg-purple-900"></div>
                 <span className="hidden sm:inline">Cart</span>
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-600 text-white text-xs rounded-full flex items-center justify-center">2</span>
               </button>
               <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {isMenuOpen ? "X" : "≡"}
               </button>
             </div>
           </div>
@@ -152,7 +151,7 @@ export default function AuroraAudio() {
           {/* Search Bar */}
           <div className="pb-4 relative">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-900" size={18} />
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-purple-900"></div>
               <input
                 type="search"
                 placeholder="Search headphones, speakers, earbuds..."
@@ -183,7 +182,7 @@ export default function AuroraAudio() {
                     onClick={() => setSearchQuery('')}
                   >
                     <span className="text-sm text-gray-800">{item.title}</span>
-                    <ArrowUpRight size={16} className="text-gray-400" />
+                    <div className="w-3 h-3 border-t border-r border-gray-400 transform rotate-45"></div>
                   </div>
                 ))}
               </div>
@@ -206,7 +205,7 @@ export default function AuroraAudio() {
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
                   <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200">
-                    <Timer size={18} className="text-pink-600" />
+                    <div className="w-4 h-4 bg-pink-600 rounded-full"></div>
                     <span className="text-sm font-medium">
                       Ends in {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
                     </span>
@@ -287,7 +286,7 @@ export default function AuroraAudio() {
               <p className="text-gray-600">Limited-time deals, refreshed hourly</p>
             </div>
             <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200">
-              <Timer size={18} className="text-pink-600" />
+              <div className="w-4 h-4 bg-pink-600 rounded-full"></div>
               <span className="text-sm font-medium">Next refresh in 15m</span>
             </span>
           </div>
@@ -311,7 +310,7 @@ export default function AuroraAudio() {
                     <span className="px-2 py-1 bg-pink-100 text-pink-700 text-xs font-bold rounded">-{item.discount}%</span>
                   </div>
                   <a href="#" className="inline-flex items-center space-x-2 text-sm font-medium hover:opacity-70 transition-opacity">
-                    <ArrowRight size={16} />
+                    <div className="w-3 h-3 border-t border-r border-gray-800 transform rotate-45"></div>
                     <span>View Deal</span>
                   </a>
                 </div>
@@ -393,7 +392,7 @@ export default function AuroraAudio() {
                     onClick={() => setQuickViewProduct(null)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                   >
-                    <X size={24} />
+                    X
                   </button>
                 </div>
                 <p className="text-lg text-gray-600 mb-6">{quickViewProduct.meta}</p>
@@ -406,7 +405,7 @@ export default function AuroraAudio() {
                     View Details
                   </button>
                   <button className="w-full py-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors flex items-center justify-center space-x-2">
-                    <Heart size={20} />
+                    <div className="w-5 h-5 bg-pink-600 rounded-full"></div>
                     <span>Add to Wishlist</span>
                   </button>
                 </div>
@@ -449,7 +448,7 @@ export default function AuroraAudio() {
               <h3 className="font-semibold text-gray-900 mb-4">Stay in touch</h3>
               <div className="flex space-x-2">
                 <div className="flex-1 relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-gray-400"></div>
                   <input
                     type="email"
                     placeholder="Your email"
@@ -466,13 +465,13 @@ export default function AuroraAudio() {
             <p className="text-sm text-gray-600 mb-4 md:mb-0">© 2025 Aurora Audio. All rights reserved.</p>
             <div className="flex items-center space-x-4">
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <Instagram size={20} />
+                <div className="w-5 h-5 bg-gradient-to-br from-purple-500 to-pink-500 rounded"></div>
               </a>
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <Twitter size={20} />
+                <div className="w-5 h-5 bg-gradient-to-br from-blue-400 to-blue-600 rounded"></div>
               </a>
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <Youtube size={20} />
+                <div className="w-5 h-5 bg-gradient-to-br from-red-500 to-red-600 rounded"></div>
               </a>
             </div>
           </div>
