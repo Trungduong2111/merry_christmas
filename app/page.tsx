@@ -1,15 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { ShoppingCart, Search, User, Menu, X, List, Timer, Heart, Mail, Instagram, Twitter, Youtube, ArrowRight, ArrowUpRight } from 'lucide-react';
+
+// Define types for products
+interface Product {
+  id: string;
+  title: string;
+  meta: string;
+  price: number;
+  category: string;
+  image: string;
+  badge?: string;
+}
+
+interface FlashSaleItem {
+  title: string;
+  meta: string;
+  price: number;
+  oldPrice: number;
+  discount: number;
+  image: string;
+}
 
 export default function AuroraAudio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
-  const [preferredCategory, setPreferredCategory] = useState(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [preferredCategory, setPreferredCategory] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 15, seconds: 27 });
 
   const categories = [
@@ -19,7 +40,7 @@ export default function AuroraAudio() {
     { name: "Accessories", count: 22 }
   ];
 
-  const products = [
+  const products: Product[] = [
     { id: 'p1', title: 'Nova Pro Wireless', meta: 'Over-ear • ANC', price: 199, category: 'Headphones', badge: 'Best Seller', image: 'https://images.unsplash.com/photo-1545127398-14699f92334b?w=600&q=80' },
     { id: 'p2', title: 'EchoMax Portable', meta: 'Bluetooth • 20h battery', price: 129, category: 'Speakers', badge: 'New', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80' },
     { id: 'p3', title: 'AirLite TWS', meta: 'IPX5 • Fast charge', price: 89, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80' },
@@ -30,13 +51,13 @@ export default function AuroraAudio() {
     { id: 'p8', title: 'ArcLite Gaming', meta: 'Surround • Mic', price: 109, category: 'Headphones', image: 'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80' }
   ];
 
-  const flashSaleItems = [
+  const flashSaleItems: FlashSaleItem[] = [
     { title: 'MiniGo Speaker', meta: 'Compact • Waterproof', price: 49, oldPrice: 79, discount: 38, image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=480&q=80' },
     { title: 'SilenceBuds', meta: 'ANC • Wireless', price: 59, oldPrice: 99, discount: 40, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=480&q=80' },
     { title: 'Walnut Stand', meta: 'Solid wood • Minimal', price: 25, oldPrice: 39, discount: 36, image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775?w=480&q=80' }
   ];
 
-  const recommendedProducts = [
+  const recommendedProducts: Product[] = [
     { id: 'r1', title: 'PocketBeat Mini', meta: 'Ultra compact', price: 39, category: 'Speakers', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80' },
     { id: 'r2', title: 'CloudEars Soft', meta: 'Memory foam tips', price: 19, category: 'Accessories', image: 'https://images.unsplash.com/photo-1625749284600-1dd4dde0b775?w=600&q=80' },
     { id: 'r3', title: 'BassBoost Pro', meta: 'Earbuds • Deep bass', price: 69, category: 'Earbuds', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80' },
@@ -77,12 +98,12 @@ export default function AuroraAudio() {
     }
   }, [searchQuery]);
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setPreferredCategory(category);
     setIsCategoriesOpen(false);
   };
 
-  const getRecommendedProducts = () => {
+  const getRecommendedProducts = (): Product[] => {
     if (preferredCategory) {
       const filtered = [...products, ...recommendedProducts].filter(p => p.category === preferredCategory);
       return filtered.length > 0 ? filtered.slice(0, 8) : recommendedProducts;
@@ -109,7 +130,7 @@ export default function AuroraAudio() {
                   onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                   className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-purple-900 transition-colors"
                 >
-                  <div className="w-4 h-4 bg-purple-900"></div>
+                  <List size={18} className="text-purple-900" />
                   <span>Categories</span>
                 </button>
                 {isCategoriesOpen && (
@@ -136,16 +157,16 @@ export default function AuroraAudio() {
             {/* Actions */}
             <div className="flex items-center space-x-4">
               <a href="#" className="hidden md:flex items-center space-x-2 text-gray-700 hover:text-purple-900 transition-colors">
-                <div className="w-4 h-4 bg-purple-900 rounded-full"></div>
+                <User size={18} className="text-purple-900" />
                 <span>Sign In</span>
               </a>
               <button className="relative flex items-center space-x-2 px-3 py-2 text-gray-700 hover:text-purple-900 transition-colors">
-                <div className="w-4 h-4 bg-purple-900"></div>
+                <ShoppingCart size={18} className="text-purple-900" />
                 <span className="hidden sm:inline">Cart</span>
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-600 text-white text-xs rounded-full flex items-center justify-center">2</span>
               </button>
               <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                {isMenuOpen ? "X" : "≡"}
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
@@ -153,7 +174,7 @@ export default function AuroraAudio() {
           {/* Search Bar */}
           <div className="pb-4 relative">
             <div className="relative">
-              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-purple-900"></div>
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-900" size={18} />
               <input
                 type="search"
                 placeholder="Search headphones, speakers, earbuds..."
@@ -184,7 +205,7 @@ export default function AuroraAudio() {
                     onClick={() => setSearchQuery('')}
                   >
                     <span className="text-sm text-gray-800">{item.title}</span>
-                    <div className="w-3 h-3 border-t border-r border-gray-400 transform rotate-45"></div>
+                    <ArrowUpRight size={16} className="text-gray-400" />
                   </div>
                 ))}
               </div>
@@ -207,7 +228,7 @@ export default function AuroraAudio() {
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
                   <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200">
-                    <div className="w-4 h-4 bg-pink-600 rounded-full"></div>
+                    <Timer size={18} className="text-pink-600" />
                     <span className="text-sm font-medium">
                       Ends in {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
                     </span>
@@ -288,7 +309,7 @@ export default function AuroraAudio() {
               <p className="text-gray-600">Limited-time deals, refreshed hourly</p>
             </div>
             <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200">
-              <div className="w-4 h-4 bg-pink-600 rounded-full"></div>
+              <Timer size={18} className="text-pink-600" />
               <span className="text-sm font-medium">Next refresh in 15m</span>
             </span>
           </div>
@@ -312,7 +333,7 @@ export default function AuroraAudio() {
                     <span className="px-2 py-1 bg-pink-100 text-pink-700 text-xs font-bold rounded">-{item.discount}%</span>
                   </div>
                   <a href="#" className="inline-flex items-center space-x-2 text-sm font-medium hover:opacity-70 transition-opacity">
-                    <div className="w-3 h-3 border-t border-r border-gray-800 transform rotate-45"></div>
+                    <ArrowRight size={16} />
                     <span>View Deal</span>
                   </a>
                 </div>
@@ -394,7 +415,7 @@ export default function AuroraAudio() {
                     onClick={() => setQuickViewProduct(null)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                   >
-                    X
+                    <X size={24} />
                   </button>
                 </div>
                 <p className="text-lg text-gray-600 mb-6">{quickViewProduct.meta}</p>
@@ -407,7 +428,7 @@ export default function AuroraAudio() {
                     View Details
                   </button>
                   <button className="w-full py-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors flex items-center justify-center space-x-2">
-                    <div className="w-5 h-5 bg-pink-600 rounded-full"></div>
+                    <Heart size={20} />
                     <span>Add to Wishlist</span>
                   </button>
                 </div>
@@ -450,7 +471,7 @@ export default function AuroraAudio() {
               <h3 className="font-semibold text-gray-900 mb-4">Stay in touch</h3>
               <div className="flex space-x-2">
                 <div className="flex-1 relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-gray-400"></div>
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     type="email"
                     placeholder="Your email"
@@ -467,13 +488,13 @@ export default function AuroraAudio() {
             <p className="text-sm text-gray-600 mb-4 md:mb-0">© 2025 Aurora Audio. All rights reserved.</p>
             <div className="flex items-center space-x-4">
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <div className="w-5 h-5 bg-gradient-to-br from-purple-500 to-pink-500 rounded"></div>
+                <Instagram size={20} />
               </a>
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <div className="w-5 h-5 bg-gradient-to-br from-blue-400 to-blue-600 rounded"></div>
+                <Twitter size={20} />
               </a>
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                <div className="w-5 h-5 bg-gradient-to-br from-red-500 to-red-600 rounded"></div>
+                <Youtube size={20} />
               </a>
             </div>
           </div>
